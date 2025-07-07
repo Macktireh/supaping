@@ -27,6 +27,12 @@ jobs:
       # Step 4: Ping Supabase
       - name: Ping Supabase
         env:
-          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} # Supabase project URL
-          SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }} # Supabase service role key
+          # Mackdin Supabase project
+          SUPABASE_URL_MACKDIN: ${{ secrets.SUPABASE_URL_MACKDIN }}
+          SUPABASE_KEY_MACKDIN: ${{ secrets.SUPABASE_KEY_MACKDIN }}
+          # Twitter Clone Supabase project
+          SUPABASE_URL_TWITTER_CLONE: ${{ secrets.SUPABASE_URL_TWITTER_CLONE }}
+          SUPABASE_KEY_TWITTER_CLONE: ${{ secrets.SUPABASE_KEY_TWITTER_CLONE }}
+
+        # Run the ping script
         run: npm run ping
