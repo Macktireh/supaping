@@ -1,4 +1,4 @@
-const { createClient } = require("@supabase/supabase-js");
+const { Client } = require("pg");
 
 try {
   require("dotenv").config();
@@ -7,54 +7,53 @@ try {
 const projects = [
   {
     name: "Mackdin",
-    url: process.env.SUPABASE_URL_MACKDIN,
-    key: process.env.SUPABASE_KEY_MACKDIN,
-    table: "post_post",
+    dbUrl: process.env.DATABASE_URL_MACKDIN,
   },
   {
     name: "Twitter Clone",
-    url: process.env.SUPABASE_URL_TWITTER_CLONE,
-    key: process.env.SUPABASE_KEY_TWITTER_CLONE,
-    table: "post_post",
-  }
+    dbUrl: process.env.DATABASE_URL_TWITTER_CLONE,
+  },
 ];
 
-async function pingDatabase(supabaseUrl, supabaseKey, tableName) {
+async function pingDatabase(projectName, dbUrl) {
+  const client = new Client({
+    connectionString: dbUrl,
+  });
+
   try {
-    // Validate environment variables
-    if (!supabaseUrl || !supabaseKey) {
+    if (!dbUrl) {
       console.error(
-        "Supabase URL and Key must be set in environment variables."
+        `L'URL de la base de données pour ${projectName} doit être définie dans les variables d'environnement.`
       );
       process.exit(1);
     }
 
-    // Supabase client
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    await client.connect();
 
-    // Ping Supabase by querying a table
-    const { data, error } = await supabase.from(tableName).select("*").limit(1);
+    const result = await client.query("SELECT 1");
 
-    // Handle errors
-    if (error) throw error;
-
-    // Log success
-    console.log("\x1b[32mPing successful\x1b[0m :", data);
+    console.log(
+      `\x1b[32mPing de la base de données ${projectName} réussi.\x1b[0m`
+    );
   } catch (err) {
-    // Log and exit with error
-    console.error("Error pinging Supabase:", err.message);
+    console.log(dbUrl);
+    console.error(
+      `Erreur lors du ping de la base de données ${projectName}:`,
+      err.message
+    );
     process.exit(1);
+  } finally {
+    await client.end();
   }
 }
 
 (async () => {
-  // Ping the database
   for (const project of projects) {
     console.log();
     console.log(`==================================`);
     console.log(`Pinging ${project.name}...`);
     console.log(`==================================`);
-    await pingDatabase(project.url, project.key, project.table);
+    await pingDatabase(project.name, project.dbUrl);
     console.log();
   }
 })();
