@@ -28,7 +28,7 @@ jobs:
       - name: Ping Supabase
         env:
           # Mackdin Supabase project
-          DATABASE_URL_MACKDIN: ${{ secrets.DATABASE_URL_MACKDIN }}
+          DATABASE_URL_MACKDIN: ${{ secrets.SUPABASE_DATABASE_URL_MACKDIN }}
           # Twitter Clone Supabase project
           DATABASE_URL_TWITTER_CLONE: ${{ secrets.DATABASE_URL_TWITTER_CLONE }}
 
