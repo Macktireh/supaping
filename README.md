@@ -22,11 +22,9 @@ npm install
 Create a `.env` file at the root of your project and define your Supabase credentials:
 
 ```env
-SUPABASE_URL_PROJECT_1=https://xyzcompany.supabase.co
-SUPABASE_KEY_PROJECT_1=your-anon-or-service-role-key
-
-SUPABASE_URL_PROJECT_2=https://abccompany.supabase.co
-SUPABASE_KEY_PROJECT_2=your-anon-or-service-role-key
+DATABASE_URL_PROJECT_1=postgres://[DB_USER]:[DB_PASSWORD]@[DB_HOST]:[DB_PORT]/[DB_NAME]
+DATABASE_URL_PROJECT_2=postgres://[DB_USER]:[DB_PASSWORD]@[DB_HOST]:[DB_PORT]/[DB_NAME]
+...
 ```
 
 ## 📦 Usage
@@ -46,10 +44,8 @@ To enable it:
 1. Fork or clone this repo into your own GitHub account.
 2. Add the required secrets to your repository settings:
 
-   - `SUPABASE_URL_PROJECT_1`
-   - `SUPABASE_KEY_PROJECT_1`
-   - `SUPABASE_URL_PROJECT_2`
-   - `SUPABASE_KEY_PROJECT_2`
+   - `DATABASE_URL_PROJECT_1`
+   - `DATABASE_URL_PROJECT_2`
 
 3. The action will run automatically on schedule or can be manually triggered via the GitHub UI.
 

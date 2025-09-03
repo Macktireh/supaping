@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Macktireh/supaping#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^2.50.3"
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "dotenv": "^17.0.1"
